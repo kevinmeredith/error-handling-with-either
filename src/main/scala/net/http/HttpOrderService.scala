@@ -15,7 +15,7 @@ object HttpOrderService {
 
 	// PUT /order/{id} 
 	// Update the quantity of an Order by ID
-	def createItem(o: OrderRequest): HttpResponse = 
+	def createOrder(o: OrderRequest): HttpResponse =
 		OrderService.update(o) match {
 			case Right(_)               => Ok
 			case Left(NoOrderFound)     => BadRequest
