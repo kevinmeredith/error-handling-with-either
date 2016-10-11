@@ -15,13 +15,14 @@ object OrderService {
 
 	def update(req: OrderRequest): Either[UpdateOrderError, Unit] = 
 		get(req) match {
-			case Right(order) => updateHelper(order)
-			case Left(e)      => Left(e)
+			case Right(Some(order)) => updateHelper(order)
+			case Right(None)        => Left(NoOrderFound)
+			case Left(e)            => Left(e)
 		}
 
 	private def updateHelper(o: Order): Either[UpdateOrderError, Unit] = 
 		Left(DbUpdateError(new SQLException("Constraint XYZ violated.")))
 
-	private def get(o: OrderRequest): Either[UpdateOrderError, Order] = 
-		???
+	private def get(o: OrderRequest): Either[UpdateOrderError, Option[Order]] =
+		Right( None )
 }
